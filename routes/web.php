@@ -14,3 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::prefix('question')->middleware(['auth'])->group(function () {
+
+    Route::get('/view', 'QuestionController@index')->name('questions.view');
+    
+    Route::get('/add', 'QuestionController@add')->name('questions.add');
+    #Route::post('/add', 'QuestionController@add')->name('questions.add');
+});
+Auth::routes();
+

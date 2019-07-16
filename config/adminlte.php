@@ -111,7 +111,7 @@ return [
         'MAIN NAVIGATION',
         [
             'text' => 'questoes',
-            'url'  => 'home/questoes',
+            'url'  => '/question/view',
             'icon'        => 'file',
         ],
         'ACCOUNT SETTINGS',

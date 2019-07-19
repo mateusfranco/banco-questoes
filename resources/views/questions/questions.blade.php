@@ -27,18 +27,23 @@
                 </table>
                 <div class="row">
                     {{$questions->links()}}
-                    <div class="col-9"></div>
-                    <button class="col-1 btn btn-danger" type="submit">reset</button>
+                    <form action="{{route('question.select.reset')}}" method="post">
+                        @csrf
+                        <button class="mx-3 btn btn-danger" type="submit">reset</button>
+                    </form>
                 </div>
-                
             </div>
         </div>
         <div class="card shadow-sm p-3 mb-5 bg-white rounded">
             <div class="card-body">
-                @if (Session::get('selected'))
-                    <div><h1>tem questoes selecionadas</h1></div>
-                @else
-                    <div><h1>nao selecionou nenhuma questao</h1></div>
+                @if (Session::get('selecteds'))
+                    @foreach (Session::get('selecteds') as $i)
+                        @if ($i['selected'])
+                            <div class="row">
+                                <h5>questao {{ $i['id'] }} selecionada </h5>
+                            </div>    
+                        @endif     
+                    @endforeach    
                 @endif
             </div>
         </div>

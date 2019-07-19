@@ -36,26 +36,40 @@ class Question extends Model
 
     public function searchByID($id, $request)
     {
-        $question = $this->where('id', $id)->get()->first();
-        $questionSelected = $request->session()->get($id,false);
-        if($questionSelected)
-        {
+        $question = $this->where('id', $id)->get();
+        if($question)
+            $question = $question[0];
+        $selecteds = $request->session()->get('selecteds',[]);
+        if(isset($selecteds[$id]) && $selecteds[$id]['selected']){
             $question['selected'] = true;
-            echo('mudou algo');
         }
+            
         return $question;
     }
     
-    public function changeSelection($id, $request)
+    public function changeSelection($request)
     {
-        $question = $request->session()->get($id,false);
-        if($question)
-        {
-            $request->session()->pull($id);
-            return;
-        }
-        $request->session()->put($id, true);
+        $id = $request['id'];
+        $questions = $request->session()->get('selecteds',[]);
+        if(isset($questions[$id]) && $questions[$id]['selected'])
+            $questions[$id] = ['selected' => false,
+                                'id' => -1];
+        else
+            $questions[$id] = ['selected' => true,
+                                'id' => -1]; 
+        $questions[$id]['id'] = $id;
+        $request->session()->put('selecteds',$questions);
         return;
-        
+    }
+
+    public function resetSelection($request)
+    {
+        $questions = $request->session()->get('selecteds',[]);
+        foreach ($questions as $value) {
+            $id = $value['id'];
+            $questions[$id]['selected']=false;
+        }
+        $request->session()->put('selecteds',$questions);
+        return;
     }
 }

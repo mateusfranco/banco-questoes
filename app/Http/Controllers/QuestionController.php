@@ -21,7 +21,7 @@ class QuestionController extends Controller
 
     public function addQuestion(Request $request, Question $question)
     {
-        $confirmation = $question->addQuestion($request);
+        $question->addQuestion($request);
         return redirect()->back();
     }
 
@@ -31,9 +31,15 @@ class QuestionController extends Controller
         return view('questions.explanation', compact('expecificQuestion'));
     }
 
-    public function questionSelect(int $id, Question $question, Request $request)
+    public function questionSelect(Question $question, Request $request)
     {
-        $question->changeSelection($id, $request);
-        return redirect()->back();
+        $question->changeSelection($request);
+        return redirect(url('/question/view'));
+    }
+
+    public function questionReset(Question $question, Request $request)
+    {
+        $question->resetSelection($request);
+        return redirect(url('/question/view'));
     }
 }

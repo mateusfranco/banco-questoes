@@ -33,4 +33,29 @@ class Question extends Model
         ]);
     
     }
+
+    public function searchByID($id, $request)
+    {
+        $question = $this->where('id', $id)->get()->first();
+        $questionSelected = $request->session()->get($id,false);
+        if($questionSelected)
+        {
+            $question['selected'] = true;
+            echo('mudou algo');
+        }
+        return $question;
+    }
+    
+    public function changeSelection($id, $request)
+    {
+        $question = $request->session()->get($id,false);
+        if($question)
+        {
+            $request->session()->pull($id);
+            return;
+        }
+        $request->session()->put($id, true);
+        return;
+        
+    }
 }

@@ -24,6 +24,10 @@ Route::prefix('question')->middleware(['auth'])->group(function () {
     
     Route::get('/add', 'QuestionController@add')->name('questions.ask');
     Route::post('/add', 'QuestionController@addQuestion')->name('questions.add');
+
+    Route::get('/explain/{id}', 'QuestionController@questionExplain')->name('question.explain');
+    Route::post('/explain/{id}', 'QuestionController@questionSelect')->name('question.select');
+    
 });
 Auth::routes();
 

@@ -28,6 +28,8 @@ Route::prefix('question')->middleware(['auth'])->group(function () {
     Route::get('/explain/{id}', 'QuestionController@questionExplain')->name('question.explain');
     Route::post('/select', 'QuestionController@questionSelect')->name('question.select');
     Route::post('/reset', 'QuestionController@questionReset')->name('question.select.reset');
+
+    Route::get('/generatepdf', 'PdfController@generateQuestions')->name('question.pdf');
 });
 Auth::routes();
 

@@ -27,7 +27,8 @@ class QuestionController extends Controller
 
     public function questionExplain(int $id, Question $question, Request $request)
     {
-        $expecificQuestion = $question->searchByID($id, $request);
+        $expecificQuestion = $question->searchByID($id);
+        $expecificQuestion = $question->selectToShow($id, $expecificQuestion, $request);
         return view('questions.explanation', compact('expecificQuestion'));
     }
 

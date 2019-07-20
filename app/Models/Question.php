@@ -34,18 +34,23 @@ class Question extends Model
     
     }
 
-    public function searchByID($id, $request)
+    public function selectToShow($id,$question,$request)
     {
-        $question = $this->where('id', $id)->get();
-        if($question)
-            $question = $question[0];
         $selecteds = $request->session()->get('selecteds',[]);
         if(isset($selecteds[$id]) && $selecteds[$id]['selected']){
             $question['selected'] = true;
         }
-            
         return $question;
     }
+
+    public function searchByID($id)
+    {
+        $question = $this->where('id', $id)->get();
+        if($question)
+            $question = $question[0];    
+        return $question;
+    }
+
     
     public function changeSelection($request)
     {

@@ -49,7 +49,7 @@
         </div>
         <div class="row">
             <a href="{{route('questions.add')}}" class="btn btn-primary"> adicionar questoes</a>
-            <a href="#" class="btn btn-primary mx-3"> imprimir pdf </a>
+            <a href="{{route('question.pdf')}}" class="btn btn-primary mx-3"> imprimir pdf </a>
         </div>
     </div>
 @endsection
